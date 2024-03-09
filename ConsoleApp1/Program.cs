@@ -1,60 +1,33 @@
 ﻿class Program
 {
-    static public int MaxProfit(int[] prices)
+    static public int RemoveDuplicates(int[] nums)
     {
-        int totalProfit = 0;
-
-        int lowestIndex = int.MaxValue;
-        int highestIndex = int.MinValue;
-
-        int lowestPrice = int.MaxValue;
-        int highestPrice = int.MinValue;
-
-        bool seekingThePeak = false;
-        bool seekingTheBottom = true;
-        for (int i = 0; i < prices.Length; i++)
+        var oneOrTwoDuplicates = new List<int>();
+        int temp = int.MinValue;
+        int countOfAlreadyAdded = 0;
+        for (int i = 0; i < nums.Length; i++)
         {
-            seekingThePeak = true;
-            if (prices[i] < lowestPrice && seekingTheBottom)
+            if (temp != nums[i])
             {
-                lowestPrice = prices[i];
-                lowestIndex = i;
-                seekingThePeak = false;
+                countOfAlreadyAdded = 0;
             }
-            if (prices[i] > highestPrice && seekingThePeak)
+            if (countOfAlreadyAdded < 2)
             {
-                highestPrice = prices[i];
-                highestIndex = i;
-                seekingTheBottom = false;
-                if (prices.Length - 1 == i)
-                {
-                    return totalProfit += highestPrice - lowestPrice;
-                }
-            }
-            else if (seekingThePeak == true)
-            {
-                seekingTheBottom = true;
-                seekingThePeak = false;// 
-
-                totalProfit += highestPrice - lowestPrice;
-
-                lowestPrice = int.MaxValue;
-                highestPrice = int.MinValue;
-
-                lowestIndex = int.MaxValue;
-                highestIndex = int.MinValue;
-                i--;
+                temp = nums[i];
+                countOfAlreadyAdded++;
+                oneOrTwoDuplicates.Add(nums[i]);
             }
         }
-
-        return totalProfit;
+        for (int i = 0; i < oneOrTwoDuplicates.Count; i++)
+        {
+            nums[i] = oneOrTwoDuplicates[i];
+        }
+        return oneOrTwoDuplicates.Count;
     }
 
     static void Main()
     {
-        //int ress = MaxProfit(new int[] { 7, 1, 5, 3, 6, 4 });
-        //int ress = MaxProfit(new int[] { 1, 2, 3, 4, 5 });
-        int ress = MaxProfit(new int[] { 2, 4, 1 });
+        int ress = RemoveDuplicates(new int[] { 2, 4, 1 });
         Console.WriteLine(ress);
     }
 }
