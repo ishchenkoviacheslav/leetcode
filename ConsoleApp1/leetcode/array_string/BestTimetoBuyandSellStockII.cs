@@ -8,7 +8,7 @@ namespace ConsoleApp1.leetcode.array_string
 {
     internal class BestTimetoBuyandSellStockII
     {
-        public int MaxProfit(int[] prices)
+        static public int MaxProfit(int[] prices)
         {
             int totalProfit = 0;
 
@@ -33,6 +33,10 @@ namespace ConsoleApp1.leetcode.array_string
                 {
                     highestPrice = prices[i];
                     highestIndex = i;
+                    if (prices.Length - 1 == i)
+                    {
+                        return totalProfit += highestPrice - lowestPrice;
+                    }
                 }
                 else if (seekingThePeak == true)
                 {

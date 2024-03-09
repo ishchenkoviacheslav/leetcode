@@ -25,6 +25,10 @@
             {
                 highestPrice = prices[i];
                 highestIndex = i;
+                if (prices.Length - 1 == i)
+                {
+                    return totalProfit += highestPrice - lowestPrice;
+                }
             }
             else if (seekingThePeak == true)
             {
@@ -47,7 +51,8 @@
 
     static void Main()
     {
-        int ress = MaxProfit(new int[] { 7, 1, 5, 3, 6, 4 });
+        //int ress = MaxProfit(new int[] { 7, 1, 5, 3, 6, 4 });
+        int ress = MaxProfit(new int[] { 1, 2, 3, 4, 5 });
         Console.WriteLine(ress);
     }
 }
