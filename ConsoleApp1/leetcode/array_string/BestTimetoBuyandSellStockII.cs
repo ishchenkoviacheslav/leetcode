@@ -12,7 +12,7 @@ namespace ConsoleApp1.leetcode.array_string
         {
             int totalProfit = 0;
 
-            int lowestIndex = int.MinValue;
+            int lowestIndex = int.MaxValue;
             int highestIndex = int.MinValue;
 
             int lowestPrice = int.MaxValue;
@@ -33,6 +33,7 @@ namespace ConsoleApp1.leetcode.array_string
                 {
                     highestPrice = prices[i];
                     highestIndex = i;
+                    seekingTheBottom = false;
                     if (prices.Length - 1 == i)
                     {
                         return totalProfit += highestPrice - lowestPrice;
@@ -48,7 +49,7 @@ namespace ConsoleApp1.leetcode.array_string
                     lowestPrice = int.MaxValue;
                     highestPrice = int.MinValue;
 
-                    lowestIndex = int.MinValue;
+                    lowestIndex = int.MaxValue;
                     highestIndex = int.MinValue;
                     i--;
                 }

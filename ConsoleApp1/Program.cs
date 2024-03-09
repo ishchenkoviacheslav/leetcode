@@ -4,7 +4,7 @@
     {
         int totalProfit = 0;
 
-        int lowestIndex = int.MinValue;
+        int lowestIndex = int.MaxValue;
         int highestIndex = int.MinValue;
 
         int lowestPrice = int.MaxValue;
@@ -25,6 +25,7 @@
             {
                 highestPrice = prices[i];
                 highestIndex = i;
+                seekingTheBottom = false;
                 if (prices.Length - 1 == i)
                 {
                     return totalProfit += highestPrice - lowestPrice;
@@ -40,7 +41,7 @@
                 lowestPrice = int.MaxValue;
                 highestPrice = int.MinValue;
 
-                lowestIndex = int.MinValue;
+                lowestIndex = int.MaxValue;
                 highestIndex = int.MinValue;
                 i--;
             }
@@ -52,7 +53,8 @@
     static void Main()
     {
         //int ress = MaxProfit(new int[] { 7, 1, 5, 3, 6, 4 });
-        int ress = MaxProfit(new int[] { 1, 2, 3, 4, 5 });
+        //int ress = MaxProfit(new int[] { 1, 2, 3, 4, 5 });
+        int ress = MaxProfit(new int[] { 2, 4, 1 });
         Console.WriteLine(ress);
     }
 }
