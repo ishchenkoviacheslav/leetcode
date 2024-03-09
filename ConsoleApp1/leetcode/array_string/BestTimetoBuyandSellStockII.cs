@@ -19,19 +19,34 @@ namespace ConsoleApp1.leetcode.array_string
             int highestPrice = int.MinValue;
 
             bool seekingThePeak = false;
+            bool seekingTheBottom = true;
             for (int i = 0; i < prices.Length; i++)
             {
                 seekingThePeak = true;
-                if (prices[i] < lowestPrice)
+                if (prices[i] < lowestPrice && seekingTheBottom)
                 {
                     lowestPrice = prices[i];
                     lowestIndex = i;
                     seekingThePeak = false;
                 }
-                if (seekingThePeak && prices[i] > highestPrice)
+                if (prices[i] > highestPrice && seekingThePeak)
                 {
                     highestPrice = prices[i];
                     highestIndex = i;
+                }
+                else if (seekingThePeak == true)
+                {
+                    seekingTheBottom = true;
+                    seekingThePeak = false;// 
+
+                    totalProfit += highestPrice - lowestPrice;
+
+                    lowestPrice = int.MaxValue;
+                    highestPrice = int.MinValue;
+
+                    lowestIndex = int.MinValue;
+                    highestIndex = int.MinValue;
+                    i--;
                 }
             }
 
