@@ -8,16 +8,9 @@ namespace ConsoleApp1.leetcode.array_string
 {
     internal class JumpGame
     {
-        //((())) - BALANCED
-        //({[]}) - BALANCED
-        //([) - NOT BALANCED
-        //([)] - NOT BALANCED
-        //([]) - BALANCED
-        //)(
-
         static bool CanJump(int[] nums)
         {
-            if (nums.Length == 1 || nums.Length == nums[0])
+            if (nums.Length == 1 || nums[0] >= nums.Length - 1)
             {
                 return true;
             }
@@ -25,36 +18,84 @@ namespace ConsoleApp1.leetcode.array_string
             {
                 return false;
             }
-            int indexToMove = 0;
-            int jump = 0;
-            while (true)
+            int countOfZeros = 0;
+            for (int i = 0; i < nums.Length; i++)
             {
-                if (nums.Length - 1 < jump + indexToMove)
+                if (i == nums.Length - 1 || nums[i] > nums.Length - 1)
                 {
                     return true;
                 }
-                int counter = nums[indexToMove];
-                int currentMaxJump = jump + counter;
-                for (int i = jump; i < currentMaxJump; i++)
+                //second condition and internal FOR below in the best way should be combined. First condition only a case of a second
+                if (nums[i] == 0 && nums[i - 1] == 1)
                 {
-                    if (nums[i] > indexToMove)
+                    //*******************************
+                    bool isBiggerIndexExist = false;
+                    for (int k = i - 1; k >= 0; k--)
                     {
-                        //take it as value, but use it as index
-                        indexToMove = nums[i];
-                        jump++;
+                        //if (nums[k] == 0)
+                        //{
+                        //    break;
+                        //}
+                        if (k + nums[k] > i)
+                        {
+                            i = k + nums[k];
+                            isBiggerIndexExist = true;
+                        }
                     }
-                    if (currentMaxJump - jump == 1)
+                    if (!isBiggerIndexExist)
                     {
-                        indexToMove = nums[i];
-                        jump++;
+                        return false;
                     }
+                    //********************************
                 }
-
-                if (counter == 0)
+                if (nums[i] == 0)
                 {
-                    return false;
+                    int j;
+                    for (j = i; j < nums.Length; j++)
+                    {
+                        if (nums[j] == 0)
+                        {
+                            countOfZeros++;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    //i-1 - return to previous non zero value, since 'i' index having zero as value
+                    if (nums[i - 1] <= countOfZeros)
+                    {
+                        //*******************************
+                        bool isBiggerIndexExist = false;
+                        for (int k = i - 1; k >= 0; k--)
+                        {
+                            //since calculation with backward direction, we moving back to first rezo value
+                            //if (nums[k] == 0)
+                            //{
+                            //    break;
+                            //}
+                            if (k + nums[k] > i - 1 + countOfZeros && nums[k + 1] != 0 || k + nums[k] == nums.Length - 1)
+                            {
+                                i = k + nums[k];
+                                isBiggerIndexExist = true;
+                            }
+                        }
+                        if (!isBiggerIndexExist)
+                        {
+                            return false;
+                        }
+                        //********************************
+                        //return false;
+                    }
+                    else
+                    {
+                        i = j - 1;
+                        countOfZeros = 0;
+                    }
                 }
             }
+
+            return true;
         }
 
         //Console.WriteLine(CanJump(new int[] { 3, 2, 1, 0, 4 }));
