@@ -18,22 +18,83 @@ namespace ConsoleApp1.interviews
         static bool IsBalanced(string s)
         {
             var chars = s.ToCharArray();
-            int balancer = 0;
+            int balancerRound = 0;
+            int balancerCurve = 0;
+            int balancerSquare = 0;
+            string unexpectedSymbols = string.Empty;
+
             for (int i = 0; i < chars.Length; i++)
             {
-                if (chars[i] == '(')
+                if (chars[i] == '(' || chars[i] == ')')
                 {
-                    balancer++;
+                    if (unexpectedSymbols.Contains(chars[i]))
+                    {
+                        return false;
+                    }
+                    if (chars[i] == '(')
+                    {
+                        unexpectedSymbols = "]}";
+                        balancerRound++;
+                    }
+                    if (chars[i] == ')')
+                    {
+                        balancerRound--;
+                        unexpectedSymbols = string.Empty;
+                    }
                 }
-                else if (chars[i] == ')')
+                //***************************************
+                if (chars[i] == '{' || chars[i] == '}')
                 {
-                    balancer--;
+                    if (unexpectedSymbols.Contains(chars[i]))
+                    {
+                        return false;
+                    }
+                    if (chars[i] == '{')
+                    {
+                        unexpectedSymbols = ")]";
+                        balancerCurve++;
+                    }
+                    if (chars[i] == '}')
+                    {
+                        balancerCurve--;
+                        unexpectedSymbols = string.Empty;
+                    }
+                }
+                //***************************************
+                if (chars[i] == '[' || chars[i] == ']')
+                {
+                    if (unexpectedSymbols.Contains(chars[i]))
+                    {
+                        return false;
+                    }
+                    if (chars[i] == '[')
+                    {
+                        unexpectedSymbols = ")}";
+                        balancerSquare++;
+                    }
+                    if (chars[i] == ']')
+                    {
+                        balancerSquare--;
+                        unexpectedSymbols = string.Empty;
+                    }
                 }
 
-                return balancer < 0;
+                if (balancerRound < 0 || balancerCurve < 0 || balancerSquare < 0)
+                {
+                    return false;
+                }
             }
 
-            return balancer == 0;
+            return balancerRound == 0 && balancerCurve == 0 && balancerSquare == 0;
         }
+        //static void Main()
+        //{
+        //    Console.WriteLine(IsBalanced("((()))")); //T
+        //    Console.WriteLine(IsBalanced("({[]})")); //T
+        //    Console.WriteLine(IsBalanced("([)"));//F
+        //    Console.WriteLine(IsBalanced("([)]")); //F
+        //    Console.WriteLine(IsBalanced("([])")); //T
+        //    Console.WriteLine(IsBalanced(")(")); //F
+        //}
     }
 }
