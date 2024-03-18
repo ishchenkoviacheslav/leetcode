@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1.leetcode.array_string
 {
-    internal class LongestCommonPrefix
+    internal class LongestCommonPrefixClass
     {
         static public string LongestCommonPrefix(string[] strs)
         {
