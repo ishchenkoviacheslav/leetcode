@@ -8,43 +8,27 @@ namespace ConsoleApp1.leetcode.array_string
 {
     public class RandomizedSet
     {
-        List<int> values = null;
-        static int counter = 0;
-
+        HashSet<int> set = null;
+        Random rnd = null;
         public RandomizedSet()
         {
-            values = new List<int>();
+            set = new HashSet<int>();
+            rnd = new Random();
         }
 
         public bool Insert(int val)
         {
-            counter = 0;
-            if (values.Contains(val))
-            {
-                return false;
-            }
-            else
-            {
-                values.Add(val);
-                return true;
-            }
+            return set.Add(val);
         }
 
         public bool Remove(int val)
         {
-            counter = 0;
-            return values.Remove(val);
+            return set.Remove(val);
         }
 
         public int GetRandom()
         {
-            int res = values[counter];
-            counter++;
-            if (counter > values.Count - 1)
-            {
-                counter = 0;
-            }
-            return res;
+            return set.ElementAt(rnd.Next(set.Count));
         }
     }
 }
