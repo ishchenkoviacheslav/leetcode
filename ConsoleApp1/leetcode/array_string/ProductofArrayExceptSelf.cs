@@ -10,8 +10,23 @@ namespace ConsoleApp1.leetcode.array_string
     {
         static public int[] ProductExceptSelf(int[] nums)
         {
+            if (nums.Length == 2)
+            {
+                if (nums[0] == 0 && nums[1] == 0)
+                {
+                    return new int[] { 0, 0 };
+                }
+                else
+                {
+                    int swap = nums[0];
+                    nums[0] = nums[1];
+                    nums[1] = swap;
+
+                    return nums;
+                }
+            }
             int[] answer = new int[nums.Length];
-            int temp = 0;
+            int temp = int.MinValue;
             for (int i = 0; i < nums.Length; i++)
             {
                 for (int j = 0; j < nums.Length; j++)
@@ -20,7 +35,7 @@ namespace ConsoleApp1.leetcode.array_string
                     {
                         continue;
                     }
-                    if (temp == 0)
+                    if (temp == int.MinValue)
                     {
                         int tempIndex = j + 1 == i ? j + 2 : j + 1;
                         temp = nums[j] * nums[tempIndex];
@@ -39,7 +54,7 @@ namespace ConsoleApp1.leetcode.array_string
                     }
                 }
                 answer[i] = temp;
-                temp = 0;
+                temp = int.MinValue;
             }
 
             return answer;
