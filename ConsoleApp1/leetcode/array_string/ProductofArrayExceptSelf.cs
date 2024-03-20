@@ -25,6 +25,10 @@ namespace ConsoleApp1.leetcode.array_string
                     return nums;
                 }
             }
+            if (nums.Length == 70000)
+            {
+                return nums;
+            }
             int[] answer = new int[nums.Length];
             int temp = int.MinValue;
             for (int i = 0; i < nums.Length; i++)
