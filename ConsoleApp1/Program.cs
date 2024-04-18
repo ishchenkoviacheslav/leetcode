@@ -5,7 +5,7 @@
         int startIndex = 0;
         int index = 0;
         int lastIndex = gas.Length - 1;
-        int tries = 0;
+        int tries = 1;
         int tank = 0;
         bool firstInit = true;
         while (true)
@@ -18,7 +18,7 @@
             {
                 if (firstInit)
                 {
-                    firstInit = false;
+                    //firstInit = false;
                     tank = gas[index];
                 }
                 else
@@ -29,11 +29,11 @@
 
             if (tank > 0)
             {
-                if (startIndex+1 == index)
+                if (startIndex == index && !firstInit)
                 {
                     return startIndex;
                 }
-
+                firstInit = false;
                 if (index == lastIndex)
                 {
                     index = 0;
@@ -55,7 +55,7 @@
                 else
                 {
                     startIndex++;
-                    index++;
+                    index = startIndex;
                     tank = 0;
                     firstInit = true;
                 }
