@@ -29,6 +29,11 @@
             }
             else
             {
+                if (startIndex == lastIndex)
+                {
+                    return -1;
+                }
+
                 if (index == lastIndex)
                 {
                     startIndex = 0;
@@ -43,18 +48,13 @@
                 }
                 firstInit = true;
             }
-
-            if (startIndex >= lastIndex)
-            {
-                return -1;
-            }
         }
     }
     static void Main()
     {
-        //Console.WriteLine(CanCompleteCircuit(new int[] { 1, 2, 3, 4, 5 }, new int[] { 3, 4, 5, 1, 2 }));
-        //Console.WriteLine(CanCompleteCircuit(new int[] { 2, 3, 4 }, new int[] { 3, 4, 3 }));
-        //Console.WriteLine(CanCompleteCircuit(new int[] { 5, 1, 2, 3, 4 }, new int[] { 4, 4, 1, 5, 1 }));
+        Console.WriteLine(CanCompleteCircuit(new int[] { 1, 2, 3, 4, 5 }, new int[] { 3, 4, 5, 1, 2 }));
+        Console.WriteLine(CanCompleteCircuit(new int[] { 2, 3, 4 }, new int[] { 3, 4, 3 }));
+        Console.WriteLine(CanCompleteCircuit(new int[] { 5, 1, 2, 3, 4 }, new int[] { 4, 4, 1, 5, 1 }));
         Console.WriteLine(CanCompleteCircuit(new int[] { 3, 3, 4 }, new int[] { 3, 4, 4 }));
     }
 }
