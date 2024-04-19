@@ -13,49 +13,38 @@ namespace ConsoleApp1.leetcode.array_string
             int startIndex = 0;
             int index = 0;
             int lastIndex = gas.Length - 1;
-            int tries = 0;
-            int gasVolume = 0;
+            int tank = 0;
+            bool firstInit = true;
             while (true)
             {
-                gasVolume = gasVolume + gas[index] - cost[index];
-                if (gasVolume > 0)
-                {
-                    if (index == lastIndex)
-                    {
-                        index = 0;
-                        gasVolume += gas[index];
-                    }
-                    else
-                    {
-                        index++;
-                        gasVolume += gas[index];
-                    }
+                tank = tank + gas[index] - cost[index];
 
-                    if (startIndex == index)
+                if (tank > 0 || (tank == 0 && startIndex == (index + 1 > lastIndex ? 0 : index + 1)))
+                {
+                    if (startIndex == index && firstInit == false)
                     {
                         return startIndex;
                     }
-                }
-                else if (gasVolume < 1)
-                {
                     if (index == lastIndex)
                     {
-                        startIndex = 0;
                         index = 0;
-                        gasVolume = 0;
                     }
                     else
                     {
-                        startIndex++;
                         index++;
-                        gasVolume = 0;
                     }
-                    tries++;
+                    firstInit = false;
                 }
-
-                if (tries == gas.Length)
+                else
                 {
-                    return -1;
+                    if (startIndex == lastIndex)
+                    {
+                        return -1;
+                    }
+                    startIndex++;
+                    index = startIndex;
+                    tank = 0;
+                    firstInit = true;
                 }
             }
         }
