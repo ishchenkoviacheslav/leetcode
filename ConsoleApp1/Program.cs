@@ -7,33 +7,16 @@
         int lastIndex = gas.Length - 1;
         int tries = 1;
         int tank = 0;
-        bool firstInit = true;
         while (true)
         {
-            if (gas[index] - cost[index] < 1 && index == startIndex)
-            {
-                tank = -1;
-            }
-            else
-            {
-                if (firstInit)
-                {
-                    //firstInit = false;
-                    tank = gas[index];
-                }
-                else
-                {
-                    tank = tank - cost[index-1 < 0 ? lastIndex : index-1] + gas[index];
-                }
-            }
+            tank = tank + gas[index] - cost[index];
 
             if (tank > 0)
             {
-                if (startIndex == index && !firstInit)
+                if (startIndex == index)
                 {
                     return startIndex;
                 }
-                firstInit = false;
                 if (index == lastIndex)
                 {
                     index = 0;
@@ -43,21 +26,19 @@
                     index++;
                 }
             }
-            else if (tank < 1)
+            else
             {
                 if (index == lastIndex)
                 {
                     startIndex = 0;
                     index = 0;
                     tank = 0;
-                    firstInit = true;
                 }
                 else
                 {
                     startIndex++;
                     index = startIndex;
                     tank = 0;
-                    firstInit = true;
                 }
                 tries++;
             }
