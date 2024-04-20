@@ -1,10 +1,9 @@
-﻿using System.Diagnostics;
-using System.Text;
+﻿using System.Text;
 
 class Program
 {
     static void Main()
     {
-        
+       
     }
 }
