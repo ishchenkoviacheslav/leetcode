@@ -1,52 +1,145 @@
-﻿class Program
-{
-    static public int CanCompleteCircuit(int[] gas, int[] cost)
-    {
-        int startIndex = 0;
-        int index = 0;
-        int lastIndex = gas.Length - 1;
-        int tank = 0;
-        bool firstInit = true;
-        while (true)
-        {
-            tank = tank + gas[index] - cost[index];
+﻿using System.Diagnostics;
+using System.Text;
 
-            if (tank > 0 || (tank == 0 && startIndex == (index+1 > lastIndex ? 0 : index+1)))
+class Program
+{
+    static public string IntToRoman(int num)
+    {
+        StringBuilder romanNumber = new StringBuilder() { Capacity = 4 };
+        var numAsChars = num.ToString().ToCharArray();
+        for (int i = numAsChars.Length - 1; i > -1; i--)
+        {
+            switch (i)
             {
-                if (startIndex == index && firstInit == false)
-                {
-                    return startIndex;
-                }
-                if (index == lastIndex)
-                {
-                    index = 0;
-                }
-                else
-                {
-                    index++;
-                }
-                firstInit = false;
-            }
-            else
-            {
-                if (startIndex == lastIndex)
-                {
-                    return -1;
-                }
-                startIndex++;
-                index = startIndex;
-                tank = 0;
-                firstInit = true;
+                case 0:
+                    if (numAsChars[i] == 1)
+                    {
+                        romanNumber.Append("I");
+                    }
+                    else if (numAsChars[i] == 2)
+                    {
+                        romanNumber.Append("II");
+                    }
+                    else if (numAsChars[i] == 3)
+                    {
+                        romanNumber.Append("III");
+                    }
+                    else if (numAsChars[i] == 4)
+                    {
+                        romanNumber.Append("IV");
+                    }
+                    else if (numAsChars[i] == 5)
+                    {
+                        romanNumber.Append("V");
+                    }
+                    else if (numAsChars[i] == 6)
+                    {
+                        romanNumber.Append("VI");
+                    }
+                    else if (numAsChars[i] == 7)
+                    {
+                        romanNumber.Append("VII");
+                    }
+                    else if (numAsChars[i] == 8)
+                    {
+                        romanNumber.Append("VIII");
+                    }
+                    else if (numAsChars[i] == 9)
+                    {
+                        romanNumber.Append("IX");
+                    }
+                    break;
+                //dozents
+                case 1:
+                    if (numAsChars[i] == 1)
+                    {
+                        romanNumber.Append("X");
+                    }
+                    else if (numAsChars[i] == 2)
+                    {
+                        romanNumber.Append("XX");
+                    }
+                    else if (numAsChars[i] == 3)
+                    {
+                        romanNumber.Append("XXX");
+                    }
+                    else if (numAsChars[i] == 4)
+                    {
+                        romanNumber.Append("XL");
+                    }
+                    else if (numAsChars[i] == 5)
+                    {
+                        romanNumber.Append("L");
+                    }
+                    else if (numAsChars[i] == 6)
+                    {
+                        romanNumber.Append("LX");
+                    }
+                    else if (numAsChars[i] == 7)
+                    {
+                        romanNumber.Append("LXX");
+                    }
+                    else if (numAsChars[i] == 8)
+                    {
+                        romanNumber.Append("LXXX");
+                    }
+                    else if (numAsChars[i] == 9)
+                    {
+                        romanNumber.Append("XC");
+                    }
+                    break;
+                //hundreds
+                case 2:
+                    if (numAsChars[i] == 1)
+                    {
+                        romanNumber.Append("C");
+                    }
+                    else if (numAsChars[i] == 2)
+                    {
+                        romanNumber.Append("CC");
+                    }
+                    else if (numAsChars[i] == 3)
+                    {
+                        romanNumber.Append("CCC");
+                    }
+                    else if (numAsChars[i] == 4)
+                            {
+                        romanNumber.Append("CD");
+                    }
+                    else if (numAsChars[i] == 5)
+                    {
+                        romanNumber.Append("D");
+                    }
+                    else if (numAsChars[i] == 6)
+                    {
+                        romanNumber.Append("DC");
+                    }
+                    else if (numAsChars[i] == 7)
+                    {
+                        romanNumber.Append("DCC");
+                    }
+                    else if (numAsChars[i] == 8)
+                    {
+                        romanNumber.Append("DCCC");
+                    }
+                    else if (numAsChars[i] == 9)
+                    {
+                        romanNumber.Append("CM");
+                    }
+                    break;
+                //thousands
+                case 3:
+                    romanNumber.Append("M");
+                    break;
             }
         }
+
+        return romanNumber.ToString();
     }
     static void Main()
     {
-        //Console.WriteLine(CanCompleteCircuit(new int[] { 1, 2, 3, 4, 5 }, new int[] { 3, 4, 5, 1, 2 }));
-        //Console.WriteLine(CanCompleteCircuit(new int[] { 2, 3, 4 }, new int[] { 3, 4, 3 }));
-        //Console.WriteLine(CanCompleteCircuit(new int[] { 5, 1, 2, 3, 4 }, new int[] { 4, 4, 1, 5, 1 }));
-        //Console.WriteLine(CanCompleteCircuit(new int[] { 3, 3, 4 }, new int[] { 3, 4, 4 }));
-        //Console.WriteLine(CanCompleteCircuit(new int[] { 4, 5, 2, 6, 5, 3 }, new int[] { 3, 2, 7, 3, 2, 9 }));
-        Console.WriteLine(CanCompleteCircuit(new int[] { 3, 1, 1 }, new int[] { 1, 2, 2 }));
+        Console.WriteLine(IntToRoman(3)); // III
+        Console.WriteLine(IntToRoman(58)); // LVIII
+        Console.WriteLine(IntToRoman(1994)); // MCMXCIV
     }
 }
