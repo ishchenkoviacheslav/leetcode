@@ -46,9 +46,13 @@
             }
             else if (ratings[i - 1] > ratings[i] && ratings[i] > ratings[i + 1])
             {
-                if (currentCandies > 1)
+                if (currentCandies > 2)
                 {
-                    currentCandies--;//=2?
+                    currentCandies--;
+                }
+                else if (currentCandies < 2)
+                {
+                    currentCandies++;
                 }
             }
             else if (ratings[i - 1] == ratings[i] && ratings[i] == ratings[i + 1])
@@ -61,9 +65,13 @@
             }
             else if (ratings[i - 1] == ratings[i] && ratings[i] > ratings[i + 1])
             {
-                if (currentCandies > 1)
+                if (currentCandies > 2)
                 {
-                    currentCandies--;//=2?
+                    currentCandies--;
+                }
+                else if (currentCandies < 2)
+                {
+                    currentCandies++;
                 }
             }
             else if (ratings[i - 1] > ratings[i] && ratings[i] == ratings[i + 1])
@@ -96,10 +104,11 @@
     {
         //Console.WriteLine(Candy(new[] { 1, 0, 2 }));       //5
         //Console.WriteLine(Candy(new[] { 1, 2, 2 }));    //4
-        //Console.WriteLine(Candy(new []{ 1, 2, 87, 87, 87, 2, 1 }));    //13
+        Console.WriteLine(Candy(new[] { 1, 2, 87, 87, 87, 2, 1 }));    //13
         //                              1  2  3   1   3   2  1
         //Console.WriteLine(Candy(new []{ 29, 51, 87, 87, 72, 12 }));    //12
-        Console.WriteLine(Candy(new []{ 1, 3, 2, 2, 1 }));    //7
-        //                              1  2  1  2  1
+        //Console.WriteLine(Candy(new []{ 1, 3, 2, 2, 1 }));    //7
+        //                              1  2  1  2  1 - should be
+        //                              1  2  1  1  1 - actual have
     }
 }
