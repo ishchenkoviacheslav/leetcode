@@ -40,11 +40,11 @@
             //122 ++
             //121 ++
             //212 =1
-            if (ratings[i - 1] < ratings[i] && ratings[i] > ratings[i + 1])
+            if (ratings[i - 1] < ratings[i] && ratings[i] < ratings[i + 1])
             {
                 currentCandies++;
             }
-            else if (ratings[i - 1] > ratings[i] && ratings[i] < ratings[i + 1])
+            else if (ratings[i - 1] > ratings[i] && ratings[i] > ratings[i + 1])
             {
                 currentCandies--;//=2?
             }
@@ -106,9 +106,9 @@
     }
     static void Main()
     {
-        Console.WriteLine(Candy(new[] { 1, 0, 2 }));       //5
+        //Console.WriteLine(Candy(new[] { 1, 0, 2 }));       //5
         //Console.WriteLine(Candy(new[] { 1, 2, 2 }));    //4
-        //Console.WriteLine(Candy(new []{ 1, 2, 87, 87, 87, 2, 1 }));    //13
+        Console.WriteLine(Candy(new []{ 1, 2, 87, 87, 87, 2, 1 }));    //13
         //Console.WriteLine(Candy(new []{ 29, 51, 87, 87, 72, 12 }));    //12
         //                              1   2   3   
     }
