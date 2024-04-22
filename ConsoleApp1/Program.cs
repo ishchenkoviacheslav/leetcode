@@ -105,7 +105,8 @@
         //Console.WriteLine(Candy(new[] { 1, 0, 2 }));       //5
         //Console.WriteLine(Candy(new[] { 1, 2, 2 }));    //4
         Console.WriteLine(Candy(new[] { 1, 2, 87, 87, 87, 2, 1 }));    //13
-        //                              1  2  3   1   3   2  1
+        //                              1  2  3   1   3   2  1 - should be
+        //                              1  2  3   1   2   2  1 - actual have
         //Console.WriteLine(Candy(new []{ 29, 51, 87, 87, 72, 12 }));    //12
         //Console.WriteLine(Candy(new []{ 1, 3, 2, 2, 1 }));    //7
         //                              1  2  1  2  1 - should be
