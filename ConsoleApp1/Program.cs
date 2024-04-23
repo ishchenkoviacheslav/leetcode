@@ -141,8 +141,10 @@
         //Console.WriteLine(Candy(new[] { 29, 51, 87, 87, 72, 12 }));    //12
         //                              1   2   3    3   2   1 - should be
         //                              1     - actual have
-        Console.WriteLine(Candy(new[] { 1, 6, 10, 8, 7, 3, 2 }));    //18
+        //Console.WriteLine(Candy(new[] { 1, 6, 10, 8, 7, 3, 2 }));    //18
         //                              1  2   5  4  3  2  1 - should be
         //                              1  2   3  2  1  0  0 - actual have
+        Console.WriteLine(Candy(new[] { 0, 1, 2, 3, 2, 1 }));    //13
+
     }
 }
