@@ -46,20 +46,28 @@
             }
             else if (ratings[i - 1] > ratings[i] && ratings[i] > ratings[i + 1])
             {
-                //int exactCaseCandies = currentCandies;
-                //for (int j = i; j < ratings.Length - 1; j++)
-                //{
-                //    if (ratings[j] > ratings[j + 1])
-                //    {
-                //        exactCaseCandies++;
-                //    }
-                //    else
-                //    {
-                //        break;
-                //    }
-                //}
-                //currentCandies = exactCaseCandies;
-                currentCandies--;
+                int exactCaseCandies = 1;
+                for (int j = i; j < ratings.Length - 1; j++)
+                {
+                    if (ratings[j] > ratings[j + 1])
+                    {
+                        exactCaseCandies++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                 //next after top before down...
+                if (currentCandies < exactCaseCandies)
+                {
+                    //+1 for additional point for previous child
+                    currentCandies = exactCaseCandies + 1;
+                }
+                else
+                {
+                    currentCandies--;
+                }
             }
             else if (ratings[i - 1] == ratings[i] && ratings[i] == ratings[i + 1])
             {
