@@ -4,6 +4,8 @@
     {
         int totalCandies = 0;
         int currentCandies = 1;
+        bool needToUseExtraAdd = false;
+        int extraAdd = 0;
         for (int i = 0; i < ratings.Length; i++)
         {
             if (i == 0)
@@ -61,8 +63,9 @@
                  //next after top before down...
                 if (currentCandies < exactCaseCandies)
                 {
-                    //+1 for additional point for previous child
-                    currentCandies = exactCaseCandies + 1;
+                    extraAdd = exactCaseCandies - currentCandies + 1;
+                    needToUseExtraAdd = true;
+                    currentCandies = exactCaseCandies;
                 }
                 else
                 {
@@ -117,6 +120,11 @@
                 throw new Exception("uncovered case");
             }
             //////////////////////////////////////////////////////////////////////////////
+            if (needToUseExtraAdd)
+            {
+                needToUseExtraAdd = false;
+                totalCandies += extraAdd;
+            }
             totalCandies += currentCandies;
         }
 
