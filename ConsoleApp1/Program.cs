@@ -71,7 +71,7 @@
             }
             else if (ratings[i - 1] == ratings[i] && ratings[i] > ratings[i + 1])
             {
-                int exactCaseCandies = currentCandies;
+                int exactCaseCandies = 1;
                 for (int j = i; j < ratings.Length - 1; j++)
                 {
                     if(ratings[j] > ratings[j + 1])
@@ -83,7 +83,10 @@
                         break;
                     }
                 }
-                currentCandies = exactCaseCandies;
+                if (currentCandies < exactCaseCandies)
+                {
+                    currentCandies = exactCaseCandies;
+                }
             }
             else if (ratings[i - 1] > ratings[i] && ratings[i] == ratings[i + 1])
             {
@@ -114,14 +117,14 @@
 
     static void Main()
     {
-        //Console.WriteLine(Candy(new[] { 1, 0, 2 }));       //5
-        //Console.WriteLine(Candy(new[] { 1, 2, 2 }));    //4
-        //Console.WriteLine(Candy(new[] { 1, 2, 87, 87, 87, 2, 1 }));    //13
+        Console.WriteLine(Candy(new[] { 1, 0, 2 }));       //5
+        Console.WriteLine(Candy(new[] { 1, 2, 2 }));    //4
+        Console.WriteLine(Candy(new[] { 1, 2, 87, 87, 87, 2, 1 }));    //13
         //                              1  2  3   1   3   2  1 - should be
         //                              1  2  3   1   2   2  1 - actual have
         Console.WriteLine(Candy(new[] { 29, 51, 87, 87, 72, 12 }));    //12
-        //                              1    2   3 - should be
-        //                              1   2    - actual have
+        //                              1   2   3    3   2   1 - should be
+        //                              1     - actual have
         //Console.WriteLine(Candy(new []{ 1, 3, 2, 2, 1 }));    //7
         //                              1  2  1  2  1 - should be
         //                              1  2  1  1  1 - actual have
