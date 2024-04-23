@@ -67,6 +67,11 @@
                     needToUseExtraAdd = true;
                     currentCandies = goingStrightDownCounter;
                 }
+                else if(currentCandies == goingStrightDownCounter)
+                {
+                    extraAdd = 1;
+                    needToUseExtraAdd = true;
+                }
                 else
                 {
                     if(currentCandies - goingStrightDownCounter > 0)
@@ -131,6 +136,7 @@
             {
                 needToUseExtraAdd = false;
                 totalCandies += extraAdd;
+                extraAdd = 0;
             }
             totalCandies += currentCandies;
         }
@@ -154,5 +160,8 @@
         Console.WriteLine(Candy(new[] { 0, 1, 2, 3, 2, 1 }));    //13
         //                              1  2  3  4  2  1 - should be
         //                              1  2  3  4  3  1 - actual have
+        Console.WriteLine(Candy(new[] { 1, 2, 3, 5, 4, 3, 2, 1 }));    //21
+        //                              1  2  3  5  4  3  2  1 - should be
+        //                              1  - actual have
     }
 }
