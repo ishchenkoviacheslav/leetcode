@@ -2,6 +2,10 @@
 {
     static public int Candy(int[] ratings)
     {
+        if (ratings.Length == 1)
+        {
+            return 1;
+        }
         int totalCandies = 0;
         int currentCandies = 1;
         bool needToUseExtraAdd = false;
@@ -94,21 +98,32 @@
             }
             else if (ratings[i - 1] == ratings[i] && ratings[i] > ratings[i + 1])
             {
-                int exactCaseCandies = 1;
+                int goingStrightDownCounter = 1;
                 for (int j = i; j < ratings.Length - 1; j++)
                 {
                     if(ratings[j] > ratings[j + 1])
                     {
-                        exactCaseCandies++;
+                        goingStrightDownCounter++;
                     }
                     else
                     {
                         break;
                     }
                 }
-                if (currentCandies < exactCaseCandies)
+                if (currentCandies < goingStrightDownCounter)
                 {
-                    currentCandies = exactCaseCandies;
+                    currentCandies = goingStrightDownCounter;
+                }
+                else
+                {
+                    if (currentCandies - goingStrightDownCounter > 0)
+                    {
+                        currentCandies = currentCandies - (currentCandies - goingStrightDownCounter);
+                    }
+                    else
+                    {
+                        currentCandies--;
+                    }
                 }
             }
             else if (ratings[i - 1] > ratings[i] && ratings[i] == ratings[i + 1])
@@ -163,5 +178,8 @@
         Console.WriteLine(Candy(new[] { 1, 2, 3, 5, 4, 3, 2, 1 }));    //21
         //                              1  2  3  5  4  3  2  1 - should be
         //                              1  - actual have
+        Console.WriteLine(Candy(new[] { 1, 2, 4, 4, 3 }));    //9
+        ////                            1  2  3  2  1 - should be
+        ////                            1  - actual have
     }
 }
