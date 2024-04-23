@@ -32,10 +32,10 @@
 
             //////////////////////////////////////////////////////////////////////////////
             //123 ++
-            //321 -- || =2?
+            //321 =2?
             //222 =1
             //223 =1
-            //221 -- || =2?
+            //221 =2?
             //211 =1
             //122 ++
             //121 ++
@@ -46,14 +46,20 @@
             }
             else if (ratings[i - 1] > ratings[i] && ratings[i] > ratings[i + 1])
             {
-                if (currentCandies > 2)
-                {
-                    currentCandies--;
-                }
-                else if (currentCandies < 2)
-                {
-                    currentCandies++;
-                }
+                //int exactCaseCandies = currentCandies;
+                //for (int j = i; j < ratings.Length - 1; j++)
+                //{
+                //    if (ratings[j] > ratings[j + 1])
+                //    {
+                //        exactCaseCandies++;
+                //    }
+                //    else
+                //    {
+                //        break;
+                //    }
+                //}
+                //currentCandies = exactCaseCandies;
+                currentCandies--;
             }
             else if (ratings[i - 1] == ratings[i] && ratings[i] == ratings[i + 1])
             {
@@ -65,14 +71,19 @@
             }
             else if (ratings[i - 1] == ratings[i] && ratings[i] > ratings[i + 1])
             {
-                if (currentCandies > 2)
+                int exactCaseCandies = currentCandies;
+                for (int j = i; j < ratings.Length - 1; j++)
                 {
-                    currentCandies--;
+                    if(ratings[j] > ratings[j + 1])
+                    {
+                        exactCaseCandies++;
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
-                else if (currentCandies < 2)
-                {
-                    currentCandies++;
-                }
+                currentCandies = exactCaseCandies;
             }
             else if (ratings[i - 1] > ratings[i] && ratings[i] == ratings[i + 1])
             {
@@ -100,14 +111,17 @@
 
         return totalCandies;
     }
+
     static void Main()
     {
         //Console.WriteLine(Candy(new[] { 1, 0, 2 }));       //5
         //Console.WriteLine(Candy(new[] { 1, 2, 2 }));    //4
-        Console.WriteLine(Candy(new[] { 1, 2, 87, 87, 87, 2, 1 }));    //13
+        //Console.WriteLine(Candy(new[] { 1, 2, 87, 87, 87, 2, 1 }));    //13
         //                              1  2  3   1   3   2  1 - should be
         //                              1  2  3   1   2   2  1 - actual have
-        //Console.WriteLine(Candy(new []{ 29, 51, 87, 87, 72, 12 }));    //12
+        Console.WriteLine(Candy(new[] { 29, 51, 87, 87, 72, 12 }));    //12
+        //                              1    2   3 - should be
+        //                              1   2    - actual have
         //Console.WriteLine(Candy(new []{ 1, 3, 2, 2, 1 }));    //7
         //                              1  2  1  2  1 - should be
         //                              1  2  1  1  1 - actual have
