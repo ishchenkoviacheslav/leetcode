@@ -4,8 +4,9 @@
     {
         return 0;
     }
+
     static void Main()
     {
-
+        Console.WriteLine(Trap(new int[] {}));
     }
 }
