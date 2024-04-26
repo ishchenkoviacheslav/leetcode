@@ -5,8 +5,9 @@
         return 0;
     }
 
-    static void Main()
+    static async Task Main()
     {
-        Console.WriteLine(Trap(new int[] {}));
+
+        //Console.WriteLine(Trap(new int[] {}));
     }
 }
