@@ -9,6 +9,29 @@ namespace ConsoleApp1.interviews
 {
     internal class TaskAsyncAwaitWhenAll
     {
+        async Task MyMainThree()
+        {
+            await Console.Out.WriteLineAsync("1");
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            var t1 = SquareAsync(5);
+            var t2 = SquareAsync(6);
+
+            int n1 = await t1;
+            int n2 = await t2;
+            Console.WriteLine($"n1={n1}  n2={n2}"); // n1=25  n2=36
+
+            async Task<int> SquareAsync(int n)
+            {
+                await Task.Delay(3000);
+                return n * n;
+            }
+
+            stopwatch.Stop();
+            Console.WriteLine($"Время выполнения: {stopwatch.ElapsedMilliseconds} миллисекунд");
+        }
+
         async Task MyMainTwo()
         {
             Task task1 = new Task(() =>
