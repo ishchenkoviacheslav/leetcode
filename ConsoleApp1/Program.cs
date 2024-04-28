@@ -16,8 +16,11 @@
             {
                 leftPeek = height[i];
                 leftIndex = i;
-                firstPeekInit = false;
                 continue;
+            }
+            else
+            {
+                firstPeekInit = false;
             }
             notEmptyCurrentPeeks += height[i];
             //if equals?
@@ -31,14 +34,14 @@
                 notEmptyCurrentPeeks -= height[i];
                 notEmptyCurrentPeeks -= rightPeek;
 
-                int squareBetween = Math.Min(leftPeek, rightPeek) * ((rightIndex + 1 - leftIndex + 1) - 1);
+                int squareBetween = Math.Min(leftPeek, rightPeek) * (((rightIndex + 1) - (leftIndex + 1)) - 1);
                 waterTotal += squareBetween - notEmptyCurrentPeeks;
 
                 notEmptyCurrentPeeks = 0;
 
                 leftIndex = rightIndex;
                 leftPeek = rightPeek;
-                rightPeek = 0;
+                rightPeek = int.MinValue;
                 rightIndex = 0;
             }
         }
