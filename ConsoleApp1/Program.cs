@@ -2,47 +2,54 @@
 {
     static public int Trap(int[] height)
     {
-        int leftPeek = int.MinValue;
-        int rightPeek = int.MinValue;
-        int notEmptyCurrentPeeks = 0;
+        int leftPeak = int.MinValue;
+        int rightPeak = int.MinValue;
+        int notEmptyCurrentSink = 0;
         int leftIndex = 0;
         int rightIndex = 0;
         int waterTotal = 0;
-        bool firstPeekInit = true;
-
+        bool firstPeakInit = true;
+        bool bottomOfSinkIsReached = false;
         for (int i = 0; i < height.Length; i++)
         {
-            if (height[i] > leftPeek && firstPeekInit)
+            if (height[i] > leftPeak && firstPeakInit)
             {
-                leftPeek = height[i];
+                leftPeak = height[i];
                 leftIndex = i;
                 continue;
             }
             else
             {
-                firstPeekInit = false;
+                firstPeakInit = false;
             }
-            notEmptyCurrentPeeks += height[i];
-            //if equals?
-            if (height[i] > rightPeek)
+
+            //dropping after right peak started
+            if (rightPeak > height[i] && bottomOfSinkIsReached)
             {
-                rightPeek = height[i];
-                rightIndex = i;
+                //    notEmptyCurrentSink -= height[i];
+                //    notEmptyCurrentSink -= rightpeak;
+
+                //    int squareBetween = Math.Min(leftpeak, rightpeak) * (((rightIndex + 1) - (leftIndex + 1)) - 1);
+                //    waterTotal += squareBetween - notEmptyCurrentSink;
+
+                //    notEmptyCurrentSink = 0;
+
+                //    leftIndex = rightIndex;
+                //    leftpeak = rightpeak;
+                //    rightpeak = int.MinValue;
+                //    rightIndex = 0;
+                //    i--;
             }
             else
             {
-                notEmptyCurrentPeeks -= height[i];
-                notEmptyCurrentPeeks -= rightPeek;
-
-                int squareBetween = Math.Min(leftPeek, rightPeek) * (((rightIndex + 1) - (leftIndex + 1)) - 1);
-                waterTotal += squareBetween - notEmptyCurrentPeeks;
-
-                notEmptyCurrentPeeks = 0;
-
-                leftIndex = rightIndex;
-                leftPeek = rightPeek;
-                rightPeek = int.MinValue;
-                rightIndex = 0;
+                notEmptyCurrentSink += height[i];
+                rightPeak = height[i];
+                rightIndex = i;
+                //raising to the right peak started
+                if (rightPeak < height[i])
+                {
+                    bottomOfSinkIsReached = true;
+                }
             }
         }
 
