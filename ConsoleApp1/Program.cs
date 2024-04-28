@@ -2,58 +2,39 @@
 {
     static public int Trap(int[] height)
     {
-        int leftPeak = int.MinValue;
-        int rightPeak = int.MinValue;
-        int notEmptyCurrentSink = 0;
-        int leftIndex = 0;
-        int rightIndex = 0;
-        int waterTotal = 0;
-        bool firstPeakInit = true;
-        bool bottomOfSinkIsReached = false;
+        int totalArea = 0;
+        int totalNotEmpty = 0;
+        Dictionary<int, int> indexHeightPair = new Dictionary<int, int>();
         for (int i = 0; i < height.Length; i++)
         {
-            if (height[i] > leftPeak && firstPeakInit)
-            {
-                leftPeak = height[i];
-                leftIndex = i;
-                continue;
-            }
-            else
-            {
-                firstPeakInit = false;
-            }
+            indexHeightPair.Add(i, height[i]);
+        }
 
-            //dropping after right peak started
-            if (rightPeak > height[i] && bottomOfSinkIsReached)
+        var sortedIndexHeightPair = indexHeightPair.OrderByDescending(kvp => kvp.Value).ToDictionary(x => x.Key, x => x.Value);
+
+        int firstIndex = int.MinValue;
+        int firstValue = int.MinValue;
+        int secondIndex = int.MinValue;
+        int secondValue = int.MinValue;
+        while (sortedIndexHeightPair.Count > 0)
+        {
+            var kvp = sortedIndexHeightPair.First();
+            firstIndex = kvp.Key;
+            firstValue = kvp.Value;
+            sortedIndexHeightPair.Remove(firstIndex);
+            kvp = sortedIndexHeightPair.First();
+            secondIndex = kvp.Key;
+            secondValue = kvp.Value;
+            sortedIndexHeightPair.Remove(secondIndex);
+            totalArea += Math.Min(firstValue, secondValue) * (Math.Max(firstIndex, secondIndex) - Math.Min(firstIndex, secondIndex) - 1);
+            for (int i = Math.Min(firstIndex, secondIndex)+1; i < Math.Max(firstIndex, secondIndex); i++)
             {
-                //    notEmptyCurrentSink -= height[i];
-                //    notEmptyCurrentSink -= rightpeak;
-
-                //    int squareBetween = Math.Min(leftpeak, rightpeak) * (((rightIndex + 1) - (leftIndex + 1)) - 1);
-                //    waterTotal += squareBetween - notEmptyCurrentSink;
-
-                //    notEmptyCurrentSink = 0;
-
-                //    leftIndex = rightIndex;
-                //    leftpeak = rightpeak;
-                //    rightpeak = int.MinValue;
-                //    rightIndex = 0;
-                //    i--;
-            }
-            else
-            {
-                notEmptyCurrentSink += height[i];
-                rightPeak = height[i];
-                rightIndex = i;
-                //raising to the right peak started
-                if (rightPeak < height[i])
-                {
-                    bottomOfSinkIsReached = true;
-                }
+                totalNotEmpty += sortedIndexHeightPair[i];
+                sortedIndexHeightPair.Remove(i);
             }
         }
 
-        return waterTotal;
+        return totalArea - totalNotEmpty;
     }
 
     static async Task Main()
