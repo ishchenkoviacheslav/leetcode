@@ -11,7 +11,7 @@
         //
         int totalNotEmptyArea = 0, totalArea = 0;
         int peakOneIndex = -1, peakTwoIndex = -1, peakOneValue = 0, peakTwoValue = 0;
-        bool firstPeakLogic = true, secondDescendingPeak = false;
+        bool firstPeakLogic = true, secondDescendingPeak = false, secondPeakFinished = false;
         for (int i = 0; i < height.Length; i++)
         {
             if (height[i] >= peakOneValue && firstPeakLogic)
@@ -21,15 +21,18 @@
             }
             firstPeakLogic = false;
             //looking for a raising peak
-            if(height[i] >= peakOneValue && height[i] > peakTwoIndex && secondDescendingPeak == false)
+            if(height[i] >= peakOneValue && secondPeakFinished == false //)
             {
                 peakTwoValue = height[i];
                 peakTwoIndex = i;
+                secondPeakFinished = true;
+                continue;
             }
-            else if (i == height.Length - 1 && secondDescendingPeak == false && peakTwoIndex == -1)
+            else if (i == height.Length - 1 && secondDescendingPeak == false && secondPeakFinished == false//)
             {
                 secondDescendingPeak = true;
                 i = peakOneIndex;
+                continue;
             }
 
             //>= ???
@@ -41,13 +44,13 @@
             else if (i == height.Length - 1 && secondDescendingPeak)
             {
                 i = peakTwoIndex;
-                secondDescendingPeak = false;
             }
 
 
-            if (firstPeakLogic == false && )
+            if (firstPeakLogic == false && 
+                ((i == peakTwoIndex && secondDescendingPeak)|| (i == height.Length - 1 && secondDescendingPeak == false)))
             {
-
+                secondDescendingPeak = false;
             }
         }
 
