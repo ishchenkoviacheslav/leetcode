@@ -38,6 +38,10 @@
             {
                 peakTwoValue = height[i];
                 peakTwoIndex = i;
+                if (i == height.Length - 1)
+                {
+                    secondPeakFinished = true;
+                }
             } 
             else if (i == height.Length - 1 && secondDescendingPeak && secondPeakFinished == false)
             {
@@ -87,7 +91,8 @@
 
     static async Task Main()
     {
-        Console.WriteLine(Trap(new int[] { 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1 }));
-        Console.WriteLine(Trap(new int[] { 4, 2, 0, 3, 2, 5 }));
+        //Console.WriteLine(Trap(new int[] { 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1 }));
+        //Console.WriteLine(Trap(new int[] { 4, 2, 0, 3, 2, 5 }));
+        Console.WriteLine(Trap(new int[] { 4, 2, 3 }));
     }
 }
