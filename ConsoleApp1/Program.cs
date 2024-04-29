@@ -51,12 +51,34 @@
                 {
                     totalNotEmptyArea += height[j];
                 }
+
+                bool canToBreak = false;
+                int temp = int.MaxValue;
+                for (int j = peakTwoIndex + 1; j < height.Length; j++)
+                {
+                    if (height[j] < peakTwoValue && height[j] < temp)
+                    {
+                        canToBreak = true;
+                    }
+                    else
+                    {
+                        canToBreak = false;
+                        break;
+                    }
+                    temp = height[j];
+                }
+                if (canToBreak)
+                {
+                    break;
+                }
                 //firstPeakLogic = true;
+                i = peakTwoIndex;
                 peakOneIndex = peakTwoIndex;
                 peakOneValue = peakTwoValue;
+                peakTwoIndex = -1;
+                peakTwoValue = 0;
                 secondDescendingPeak = false;
                 secondPeakFinished = false;
-                i = peakTwoIndex;
             }
         }
 
