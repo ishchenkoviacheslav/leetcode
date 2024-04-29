@@ -21,20 +21,21 @@
             }
             firstPeakLogic = false;
             //looking for a raising peak
-            if(height[i] >= peakOneValue && secondPeakFinished == false //)
+            if(height[i] >= peakOneValue && secondPeakFinished == false )
             {
                 peakTwoValue = height[i];
                 peakTwoIndex = i;
                 secondPeakFinished = true;
                 continue;
             }
-            else if (i == height.Length - 1 && secondDescendingPeak == false && secondPeakFinished == false//)
+            else if (i == height.Length - 1 && secondDescendingPeak == false && secondPeakFinished == false)
             {
                 secondDescendingPeak = true;
                 i = peakOneIndex;
                 continue;
             }
 
+            //loking for decreasing peak but the heighest
             //>= ???
             if (height[i] > peakTwoValue && secondDescendingPeak)
             {
@@ -43,14 +44,15 @@
             } 
             else if (i == height.Length - 1 && secondDescendingPeak)
             {
-                i = peakTwoIndex;
+                secondPeakFinished = true;
             }
 
 
-            if (firstPeakLogic == false && 
-                ((i == peakTwoIndex && secondDescendingPeak)|| (i == height.Length - 1 && secondDescendingPeak == false)))
+            if (firstPeakLogic == false && secondPeakFinished)
             {
                 secondDescendingPeak = false;
+                secondPeakFinished = false;
+                i = peakTwoIndex;
             }
         }
 
