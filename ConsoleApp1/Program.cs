@@ -33,7 +33,6 @@
             }
 
             //loking for decreasing peak but the heighest
-            //>= ???
             if (height[i] > peakTwoValue && secondDescendingPeak && secondPeakFinished == false)
             {
                 peakTwoValue = height[i];
@@ -75,7 +74,6 @@
                 {
                     break;
                 }
-                //firstPeakLogic = true;
                 i = peakTwoIndex;
                 peakOneIndex = peakTwoIndex;
                 peakOneValue = peakTwoValue;
