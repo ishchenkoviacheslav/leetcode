@@ -15,6 +15,7 @@
             {
                 peakOneValue = height[i];
                 peakOneIndex = i;
+                continue;
             }
             firstPeakLogic = false;
             //looking for a raising peak
@@ -23,7 +24,6 @@
                 peakTwoValue = height[i];
                 peakTwoIndex = i;
                 secondPeakFinished = true;
-                continue;
             }
             else if (i == height.Length - 1 && secondDescendingPeak == false && secondPeakFinished == false)
             {
@@ -34,12 +34,12 @@
 
             //loking for decreasing peak but the heighest
             //>= ???
-            if (height[i] > peakTwoValue && secondDescendingPeak)
+            if (height[i] > peakTwoValue && secondDescendingPeak && secondPeakFinished == false)
             {
                 peakTwoValue = height[i];
                 peakTwoIndex = i;
             } 
-            else if (i == height.Length - 1 && secondDescendingPeak)
+            else if (i == height.Length - 1 && secondDescendingPeak && secondPeakFinished == false)
             {
                 secondPeakFinished = true;
             }
@@ -88,5 +88,6 @@
     static async Task Main()
     {
         Console.WriteLine(Trap(new int[] { 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1 }));
+        Console.WriteLine(Trap(new int[] { 4, 2, 0, 3, 2, 5 }));
     }
 }
