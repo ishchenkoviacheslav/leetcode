@@ -2,39 +2,31 @@
 {
     static public int Trap(int[] height)
     {
-        int totalArea = 0;
-        int totalNotEmpty = 0;
-        Dictionary<int, int> indexHeightPair = new Dictionary<int, int>();
+        //two rules how to deretmine if it's peak.
+        //1 - if there is any peak which is heighest than first (or equals)
+        //just use this logic height[i] >= peekOneValue
+        //2 - if there is only peak which is not so high as first, but it's highest than latest
+        //to be sure with this case, it's need to be checked to the end of the array
+        //and if nothing found, than use the highest peak is found.
+        //
+        int totalNotEmptyArea = 0, totalArea = 0;
+        int peekOneIndex = 0, peekTwoIndex = 0, peekOneValue = 0, peekTwoValue = 0;
+        bool firstPeakLogic = true;
         for (int i = 0; i < height.Length; i++)
         {
-            indexHeightPair.Add(i, height[i]);
-        }
-
-        var sortedIndexHeightPair = indexHeightPair.OrderByDescending(kvp => kvp.Value).ToDictionary(x => x.Key, x => x.Value);
-
-        int firstIndex = int.MinValue;
-        int firstValue = int.MinValue;
-        int secondIndex = int.MinValue;
-        int secondValue = int.MinValue;
-        while (sortedIndexHeightPair.Count > 0)
-        {
-            var kvp = sortedIndexHeightPair.First();
-            firstIndex = kvp.Key;
-            firstValue = kvp.Value;
-            sortedIndexHeightPair.Remove(firstIndex);
-            kvp = sortedIndexHeightPair.First();
-            secondIndex = kvp.Key;
-            secondValue = kvp.Value;
-            sortedIndexHeightPair.Remove(secondIndex);
-            totalArea += Math.Min(firstValue, secondValue) * (Math.Max(firstIndex, secondIndex) - Math.Min(firstIndex, secondIndex) - 1);
-            for (int i = Math.Min(firstIndex, secondIndex)+1; i < Math.Max(firstIndex, secondIndex); i++)
+            if (height[i] >= peekOneValue && firstPeakLogic)
             {
-                totalNotEmpty += sortedIndexHeightPair[i];
-                sortedIndexHeightPair.Remove(i);
+                peekOneValue = height[i];
+                peekOneIndex = i;
+            }
+            else
+            {
+                firstPeakLogic = false;
+
             }
         }
 
-        return totalArea - totalNotEmpty;
+        return totalArea - totalNotEmptyArea;
     }
 
     static async Task Main()
