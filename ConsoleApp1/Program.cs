@@ -33,7 +33,7 @@
             }
 
             //loking for decreasing peak but the heighest
-            if (height[i] > peakTwoValue && secondDescendingPeak && secondPeakFinished == false)
+            if (height[i] >= peakTwoValue && secondDescendingPeak && secondPeakFinished == false)
             {
                 peakTwoValue = height[i];
                 peakTwoIndex = i;
@@ -91,6 +91,7 @@
     {
         //Console.WriteLine(Trap(new int[] { 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1 }));
         //Console.WriteLine(Trap(new int[] { 4, 2, 0, 3, 2, 5 }));
-        Console.WriteLine(Trap(new int[] { 4, 2, 3 }));
+        //Console.WriteLine(Trap(new int[] { 4, 2, 3 }));
+        Console.WriteLine(Trap(new int[] { 8, 5, 4, 1, 8, 9, 3, 0, 0 }));
     }
 }
