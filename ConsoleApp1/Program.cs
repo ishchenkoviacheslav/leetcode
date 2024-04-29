@@ -52,6 +52,8 @@
                     totalNotEmptyArea += height[j];
                 }
                 //firstPeakLogic = true;
+                peakOneIndex = peakTwoIndex;
+                peakOneValue = peakTwoValue;
                 secondDescendingPeak = false;
                 secondPeakFinished = false;
                 i = peakTwoIndex;
