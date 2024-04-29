@@ -3,12 +3,9 @@
     static public int Trap(int[] height)
     {
         //two rules how to deretmine if it's peak.
-        //1 - if there is any peak which is heighest than first (or equals)
-        //just use this logic height[i] >= peakOneValue
-        //2 - if there is only peak which is not so high as first, but it's highest than latest
+        //1 - if there is any peak which is heighest than first (or equals?)
+        //2 - if there is only peak which is not so high as first, but it's highest between others
         //to be sure with this case, it's need to be checked to the end of the array
-        //and if nothing found, than use the highest peak is found.
-        //
         int totalNotEmptyArea = 0, totalArea = 0;
         int peakOneIndex = -1, peakTwoIndex = -1, peakOneValue = 0, peakTwoValue = 0;
         bool firstPeakLogic = true, secondDescendingPeak = false, secondPeakFinished = false;
@@ -47,9 +44,14 @@
                 secondPeakFinished = true;
             }
 
-
             if (firstPeakLogic == false && secondPeakFinished)
             {
+                totalArea += Math.Min(peakOneValue, peakTwoValue) * (peakTwoIndex - peakOneIndex - 1);
+                for (int j = peakOneIndex + 1; j < peakTwoIndex; j++)
+                {
+                    totalNotEmptyArea += height[j];
+                }
+                //firstPeakLogic = true;
                 secondDescendingPeak = false;
                 secondPeakFinished = false;
                 i = peakTwoIndex;
