@@ -34,13 +34,40 @@
             {
                 result[i] = separatedWords[0] + new string(' ', maxWidth - commonCountOfSymbols);
             }
-            else if (separatedWords.Length == 2)
+            else if (i == result.Count - 1)
+            {
+                result[i] = string.Empty;
+                for (int j = 0; j < separatedWords.Length - 1; j++)
+                {
+                    result[i] += separatedWords[j] + " ";
+                }
+                result[i] += separatedWords[separatedWords.Length - 1] + new string(' ', maxWidth - commonCountOfSymbols);
+            }
+            else if (separatedWords.Length == 2 && i != result.Count - 1)
             {
                 result[i] = separatedWords[0] + new string(' ', maxWidth - commonCountOfSymbols) + separatedWords[1];
             }
             else
             {
+                bool stillLooping = true;
+                while (stillLooping)
+                {
+                    for (int j = 0; j < separatedWords.Length - 1; j++)
+                    {
+                        separatedWords[j] += " ";
+                        if (separatedWords.Sum(s => s.Length) == maxWidth)
+                        {
+                            stillLooping = false;
+                            break;
+                        }
+                    }
+                }
 
+                result[i] = string.Empty;
+                for (int k = 0; k < separatedWords.Length; k++)
+                {
+                    result[i] += separatedWords[k];
+                }
             }
         }
 
@@ -48,7 +75,8 @@
     }
     static async Task Main()
     {
-        var result = FullJustify(new string[] { "This", "is", "an", "example", "of", "text", "justification." }, 16);
+        //var result = FullJustify(new string[] { "This", "is", "an", "example", "of", "text", "justification." }, 16);
+        var result = FullJustify(new string[] { "What", "must", "be", "acknowledgment", "shall", "be" }, 16);
         foreach (var item in result)
         {
             await Console.Out.WriteLineAsync(item);
