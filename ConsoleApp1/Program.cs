@@ -29,8 +29,16 @@
         {
             var separatedWords = result[i].Split(" ", StringSplitOptions.TrimEntries);
             var commonCountOfSymbols = separatedWords.Sum(s => s.Length);
-            var temp = string.Empty;
-            for (int j = 0; j < separated.Length; j++)
+
+            if (separatedWords.Length == 1)
+            {
+                result[i] = separatedWords[0] + new string(' ', maxWidth - commonCountOfSymbols);
+            }
+            else if (separatedWords.Length == 2)
+            {
+                result[i] = separatedWords[0] + new string(' ', maxWidth - commonCountOfSymbols) + separatedWords[1];
+            }
+            else
             {
 
             }
