@@ -7,7 +7,7 @@
         {
             var lengthOfStoredWord = result.ContainsKey(j) ? result[j].Length + 1 : 0;
 
-            if (lengthOfStoredWord + words[i].Length < maxWidth)
+            if (lengthOfStoredWord + words[i].Length <= maxWidth)
             {
                 if (result.ContainsKey(j))
                 {
@@ -78,7 +78,7 @@
     {
         //var result = FullJustify(new string[] { "This", "is", "an", "example", "of", "text", "justification." }, 16);
         //var result = FullJustify(new string[] { "What", "must", "be", "acknowledgment", "shall", "be" }, 16);
-        var result = FullJustify(new string[] { "What", "must", "be", "acknowledgment", "shall", "be" }, 16);
+        var result = FullJustify(new string[] { "Science", "is", "what", "we", "understand", "well", "enough", "to", "explain", "to", "a", "computer.", "Art", "is", "everything", "else", "we", "do" }, 20);
         foreach (var item in result)
         {
             await Console.Out.WriteLineAsync(item);
