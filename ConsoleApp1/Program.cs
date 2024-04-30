@@ -41,6 +41,7 @@
                 {
                     result[i] += separatedWords[j] + " ";
                 }
+                commonCountOfSymbols += separatedWords.Length > 1 ? separatedWords.Length - 1 : 0;
                 result[i] += separatedWords[separatedWords.Length - 1] + new string(' ', maxWidth - commonCountOfSymbols);
             }
             else if (separatedWords.Length == 2 && i != result.Count - 1)
@@ -76,6 +77,7 @@
     static async Task Main()
     {
         //var result = FullJustify(new string[] { "This", "is", "an", "example", "of", "text", "justification." }, 16);
+        //var result = FullJustify(new string[] { "What", "must", "be", "acknowledgment", "shall", "be" }, 16);
         var result = FullJustify(new string[] { "What", "must", "be", "acknowledgment", "shall", "be" }, 16);
         foreach (var item in result)
         {
