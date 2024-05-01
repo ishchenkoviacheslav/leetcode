@@ -13,16 +13,22 @@
                 {
                     for (int k = j + 1; k < nums.Length; k++)
                     {
+                        //if ((nums[i] + nums[j] == 0 && nums[k] == 0) ||
+                        //    (nums[i] + nums[k] == 0 && nums[j] == 0) ||
+                        //    (nums[j] + nums[k] == 0 && nums[i] == 0))
+                        //{
+
                         if (nums[i] + nums[j] + nums[k] == 0)
                         {
                             var orederedValues = new List<int> { nums[i], nums[j], nums[k] }.OrderBy(x => x).Select(x => x.ToString());
-                            var orederedKey = string.Join(string.Empty, orederedValues);
-                            if (!result.ContainsKey(orederedKey))
-                            {
-                                result[orederedKey] = new List<int> { nums[i], nums[j], nums[k] };
-                            }
-                        }
+                                var orederedKey = string.Join(string.Empty, orederedValues);
+                                if (!result.ContainsKey(orederedKey))
+                                {
+                                    result[orederedKey] = new List<int> { nums[i], nums[j], nums[k] };
+                                }
                     }
+                    //}
+                }
                 }
             }
         }
