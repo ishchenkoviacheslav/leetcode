@@ -3,19 +3,24 @@
     static public IList<IList<int>> ThreeSum(int[] nums)
     {
         var result = new Dictionary<string,List<int>>();
+        HashSet<int> excludingValuesI = new HashSet<int>();
         for (int i = 0; i < nums.Length - 2; i++)
         {
-            for (int j = i + 1; j < nums.Length - 1; j++)
+            if (!excludingValuesI.Contains(nums[i]))
             {
-                for (int k = j + 1; k < nums.Length; k++)
+                excludingValuesI.Add(nums[i]);
+                for (int j = i + 1; j < nums.Length - 1; j++)
                 {
-                    if (nums[i] + nums[j] + nums[k] == 0)
+                    for (int k = j + 1; k < nums.Length; k++)
                     {
-                        var orederedValues = new List<int> { nums[i], nums[j], nums[k] }.OrderBy(x => x).Select(x => x.ToString());
-                        var orederedKey = string.Join(string.Empty, orederedValues);
-                        if (!result.ContainsKey(orederedKey))
+                        if (nums[i] + nums[j] + nums[k] == 0)
                         {
-                            result[orederedKey] = new List<int> { nums[i], nums[j], nums[k] };
+                            var orederedValues = new List<int> { nums[i], nums[j], nums[k] }.OrderBy(x => x).Select(x => x.ToString());
+                            var orederedKey = string.Join(string.Empty, orederedValues);
+                            if (!result.ContainsKey(orederedKey))
+                            {
+                                result[orederedKey] = new List<int> { nums[i], nums[j], nums[k] };
+                            }
                         }
                     }
                 }
