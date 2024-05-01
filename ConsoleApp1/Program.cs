@@ -2,33 +2,40 @@
 {
     static public IList<IList<int>> ThreeSum(int[] nums)
     {
-        var result = new Dictionary<string,List<int>>();
+        var result = new Dictionary<string, List<int>>();
+
+        var onlyUniqe = nums.Distinct().ToHashSet();
         HashSet<int> excludingValuesI = new HashSet<int>();
-        for (int i = 0; i < nums.Length - 2; i++)
+        int temp = 0, lookingNumber = 0;
+        for (int i = 0; i < nums.Length; i++)
         {
             if (!excludingValuesI.Contains(nums[i]))
             {
                 excludingValuesI.Add(nums[i]);
-                for (int j = i + 1; j < nums.Length - 1; j++)
+                for (int j = i + 1; j < nums.Length; j++)
                 {
-                    for (int k = j + 1; k < nums.Length; k++)
+                    temp = nums[i] + nums[j];
+                    if (temp == 0)
                     {
-                        //if ((nums[i] + nums[j] == 0 && nums[k] == 0) ||
-                        //    (nums[i] + nums[k] == 0 && nums[j] == 0) ||
-                        //    (nums[j] + nums[k] == 0 && nums[i] == 0))
-                        //{
-
-                        if (nums[i] + nums[j] + nums[k] == 0)
-                        {
-                            var orederedValues = new List<int> { nums[i], nums[j], nums[k] }.OrderBy(x => x).Select(x => x.ToString());
-                                var orederedKey = string.Join(string.Empty, orederedValues);
-                                if (!result.ContainsKey(orederedKey))
-                                {
-                                    result[orederedKey] = new List<int> { nums[i], nums[j], nums[k] };
-                                }
+                        lookingNumber = 0;
                     }
-                    //}
-                }
+                    else if (temp > 0)
+                    {
+                        lookingNumber = temp * -1;
+                    }
+                    else if (temp < 0)
+                    {
+                        lookingNumber = Math.Abs(temp);
+                    }
+                    if (onlyUniqe.Contains(lookingNumber))
+                    {
+                        var orederedValues = new List<int> { nums[i], nums[j], lookingNumber }.OrderBy(x => x).Select(x => x.ToString());
+                        var orederedKey = string.Join(string.Empty, orederedValues);
+                        if (!result.ContainsKey(orederedKey))
+                        {
+                            result[orederedKey] = new List<int> { nums[i], nums[j], lookingNumber };
+                        }
+                    }
                 }
             }
         }
