@@ -4,17 +4,18 @@
     {
         var result = new Dictionary<string, List<int>>();
 
-        var onlyUniqe = nums.Distinct().ToHashSet();
+        var onlySingle = nums.GroupBy(i => i).Where(i => i.Count() == 1).Select(i => i.Key).ToHashSet();
+        var withoutSingle = nums.Where(i => !onlySingle.Contains(i)).ToList();
         HashSet<int> excludingValuesI = new HashSet<int>();
         int temp = 0, lookingNumber = 0;
-        for (int i = 0; i < nums.Length; i++)
+        for (int i = 0; i < withoutSingle.Count(); i++)
         {
-            if (!excludingValuesI.Contains(nums[i]))
+            if (!excludingValuesI.Contains(withoutSingle[i]))
             {
-                excludingValuesI.Add(nums[i]);
-                for (int j = i + 1; j < nums.Length; j++)
+                excludingValuesI.Add(withoutSingle[i]);
+                for (int j = i + 1; j < withoutSingle.Count(); j++)
                 {
-                    temp = nums[i] + nums[j];
+                    temp = withoutSingle[i] + withoutSingle[j];
                     if (temp == 0)
                     {
                         lookingNumber = 0;
@@ -27,13 +28,13 @@
                     {
                         lookingNumber = Math.Abs(temp);
                     }
-                    if (onlyUniqe.Contains(lookingNumber))
+                    if (onlySingle.Contains(lookingNumber))
                     {
-                        var orederedValues = new List<int> { nums[i], nums[j], lookingNumber }.OrderBy(x => x).Select(x => x.ToString());
+                        var orederedValues = new List<int> { withoutSingle[i], withoutSingle[j], lookingNumber }.OrderBy(x => x).Select(x => x.ToString());
                         var orederedKey = string.Join(string.Empty, orederedValues);
                         if (!result.ContainsKey(orederedKey))
                         {
-                            result[orederedKey] = new List<int> { nums[i], nums[j], lookingNumber };
+                            result[orederedKey] = new List<int> { withoutSingle[i], withoutSingle[j], lookingNumber };
                         }
                     }
                 }
