@@ -8,69 +8,17 @@
             return new List<IList<int>>{ new List<int> { 0, 0, 0 } };
         }
         var result = new Dictionary<string, List<int>>();
-        var startPoint = 0;
-        var endPoint = ordered.Count();
-
-        if (ordered.Count() > 10)
-        {
-            //var minimumValue = ordered[0] + ordered[1];
-            //var maximumVersusValue = Math.Abs(minimumValue);
-            //var indexOfBiggestValues = ordered.IndexOf(maximumVersusValue);
-            //if (indexOfBiggestValues != -1 && ordered.Count > 3)
-            //{
-            //    if (ordered[indexOfBiggestValues + 1] == ordered[indexOfBiggestValues])
-            //    {
-            //        ordered = ordered.GetRange(0, indexOfBiggestValues + 2);
-            //    }
-            //    else
-            //    {
-            //        ordered = ordered.GetRange(0, indexOfBiggestValues + 1);
-            //    }
-            //}
-
-            //var maximumValue = ordered[ordered.Count - 2] + ordered[ordered.Count - 1];
-            //var minimumVersusValue = maximumValue * -1;
-            //var indexOfSmallestValue = ordered.IndexOf(minimumVersusValue);
-            //if (indexOfSmallestValue != -1 && ordered.Count > 3)
-            //{
-            //    ordered = ordered.GetRange(indexOfSmallestValue, ordered.Count - 1 - indexOfSmallestValue);
-            //}
-
-            var startPointFound = false;
-            while (true)
-            {
-                if (ordered[startPoint] + ordered[ordered.Count - 2] + ordered[ordered.Count - 1] < 0)
-                {
-                    startPoint++;
-                }
-                else
-                {
-                    startPointFound = true;
-                }
-                if (!startPointFound)
-                {
-                    continue;
-                }
-                if (ordered[startPoint] + ordered[startPoint + 1] + ordered[endPoint - 1] > 0)
-                {
-                    endPoint--;
-                }
-                else
-                {
-                    break;
-                }
-            }
-        }
+        
         long counter  = 0;
-        for (int i = startPoint; i < endPoint; i++)
+        for (int i = 0; i < ordered.Count; i++)
         {
-            for (int j = i + 1; j < endPoint - 1; j++)
+            for (int j = i + 1; j < ordered.Count - 1; j++)
             {
                 if (ordered[i] + ordered[j] + ordered[ordered.Count - 1] < 0)
                 {
                     break;
                 }
-                for (int k = j + 1; k < endPoint; k++)
+                for (int k = j + 1; k < ordered.Count; k++)
                 {
                     counter++;
                     if (ordered[i] + ordered[j] + ordered[k] > 0)
