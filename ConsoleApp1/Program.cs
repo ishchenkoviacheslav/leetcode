@@ -61,12 +61,18 @@
                 }
             }
         }
+        long counter  = 0;
         for (int i = startPoint; i < endPoint; i++)
         {
             for (int j = i + 1; j < endPoint - 1; j++)
             {
+                if (ordered[i] + ordered[j] + ordered[ordered.Count - 1] < 0)
+                {
+                    break;
+                }
                 for (int k = j + 1; k < endPoint; k++)
                 {
+                    counter++;
                     if (ordered[i] + ordered[j] + ordered[k] > 0)
                     {
                         break;
@@ -86,6 +92,7 @@
                 }
             }
         }
+        Console.WriteLine(counter);
 
         return result.Values.Cast<IList<int>>().ToList();
     }
