@@ -3,6 +3,10 @@
     static public IList<IList<int>> ThreeSum(int[] nums)
     {
         var ordered = nums.ToList().OrderBy(x => x).ToList();
+        if (ordered.First() == ordered.Last() && ordered.First()== 0)
+        {
+            return new List<IList<int>>{ new List<int> { 0, 0, 0 } };
+        }
         var result = new Dictionary<string, List<int>>();
         var startPoint = 0;
         var endPoint = ordered.Count();
