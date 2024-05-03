@@ -3,8 +3,11 @@
     static public IList<IList<int>> ThreeSum(int[] nums)
     {
         var ordered = nums.ToList().OrderBy(x => x).ToList();
-        var groupped = nums.GroupBy(x => x).OrderByDescending(kvp => kvp.Count()).ToList();
-        if (nums.Length > 10)
+        var result = new Dictionary<string, List<int>>();
+        var startPoint = 0;
+        var endPoint = 0;
+
+        if (ordered.Count() > 10)
         {
             var minimumValue = ordered[0] + ordered[1];
             var maximumVersusValue = Math.Abs(minimumValue);
@@ -28,22 +31,52 @@
             {
                 ordered = ordered.GetRange(indexOfSmallestValue, ordered.Count - 1 - indexOfSmallestValue);
             }
-        }
 
-        var result = new Dictionary<string, List<int>>();
-        for (int i = 0; i < nums.Length - 2; i++)
-        {
-            for (int j = i + 1; j < nums.Length - 1; j++)
+            var startPointFound = false;
+            var endPointFound = false;
+            while (true)
             {
-                for (int k = j + 1; k < nums.Length; k++)
+                if (!startPointFound)
                 {
-                    if (nums[i] + nums[j] + nums[k] == 0)
+                    if (ordered[startPoint] + ordered[startPoint + 1] + ordered[ordered.Count - 1] < 0)
                     {
-                        var orederedValues = new List<int> { nums[i], nums[j], nums[k] }.OrderBy(x => x).Select(x => x.ToString());
+                        startPoint++;
+                    }
+                    else
+                    {
+                        startPointFound = true;
+                    }
+                }
+                if (!endPointFound)
+                {
+                    if (ordered[endPoint] < 1)
+                    {
+                        endPoint++;
+                    }
+                    else
+                    {
+                        endPointFound = true;
+                    }
+                }
+                if (endPointFound && startPointFound)
+                {
+                    break;
+                }
+            }
+        }
+        for (int i = startPoint; i < endPoint; i++)
+        {
+            for (int j = i + 1; j < ordered.Count - 1; j++)
+            {
+                for (int k = j + 1; k < ordered.Count; k++)
+                {
+                    if (ordered[i] + ordered[j] + ordered[k] == 0)
+                    {
+                        var orederedValues = new List<int> { ordered[i], ordered[j], ordered[k] }.OrderBy(x => x).Select(x => x.ToString());
                         var orederedKey = string.Join(string.Empty, orederedValues);
                         if (!result.ContainsKey(orederedKey))
                         {
-                            result[orederedKey] = new List<int> { nums[i], nums[j], nums[k] };
+                            result[orederedKey] = new List<int> { ordered[i], ordered[j], ordered[k] };
                         }
                     }
                 }
