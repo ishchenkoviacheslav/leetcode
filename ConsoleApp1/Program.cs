@@ -63,13 +63,20 @@
             {
                 for (int k = j + 1; k < endPoint; k++)
                 {
-                    if (ordered[i] + ordered[j] + ordered[k] == 0)
+                    if (ordered[i] + ordered[j] + ordered[k] > 0)
                     {
-                        var orederedValues = new List<int> { ordered[i], ordered[j], ordered[k] }.OrderBy(x => x).Select(x => x.ToString());
-                        var orederedKey = string.Join(string.Empty, orederedValues);
-                        if (!result.ContainsKey(orederedKey))
+                        break;
+                    }
+                    else
+                    {
+                        if (ordered[i] + ordered[j] + ordered[k] == 0)
                         {
-                            result[orederedKey] = new List<int> { ordered[i], ordered[j], ordered[k] };
+                            var orederedValues = new List<int> { ordered[i], ordered[j], ordered[k] }.OrderBy(x => x).Select(x => x.ToString());
+                            var orederedKey = string.Join(string.Empty, orederedValues);
+                            if (!result.ContainsKey(orederedKey))
+                            {
+                                result[orederedKey] = new List<int> { ordered[i], ordered[j], ordered[k] };
+                            }
                         }
                     }
                 }
