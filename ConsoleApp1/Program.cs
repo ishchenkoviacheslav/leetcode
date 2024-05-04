@@ -12,9 +12,13 @@
         long counter  = 0;
         for (int i = 0; i < ordered.Count; i++)
         {
+            if (ordered[i] + ordered[i + 1] + ordered[i + 2] > 0)
+            {
+                break;
+            }
             for (int j = i + 1; j < ordered.Count - 1; j++)
             {
-                if (ordered[i] + ordered[j] + ordered[ordered.Count - 1] < 0)
+                if (ordered[i] + ordered[j] + ordered[j + 1] > 0)
                 {
                     break;
                 }
@@ -25,16 +29,13 @@
                     {
                         break;
                     }
-                    else
+                    if (ordered[i] + ordered[j] + ordered[k] == 0)
                     {
-                        if (ordered[i] + ordered[j] + ordered[k] == 0)
+                        var orederedValues = new List<int> { ordered[i], ordered[j], ordered[k] }.OrderBy(x => x).Select(x => x.ToString());
+                        var orederedKey = string.Join(string.Empty, orederedValues);
+                        if (!result.ContainsKey(orederedKey))
                         {
-                            var orederedValues = new List<int> { ordered[i], ordered[j], ordered[k] }.OrderBy(x => x).Select(x => x.ToString());
-                            var orederedKey = string.Join(string.Empty, orederedValues);
-                            if (!result.ContainsKey(orederedKey))
-                            {
-                                result[orederedKey] = new List<int> { ordered[i], ordered[j], ordered[k] };
-                            }
+                            result[orederedKey] = new List<int> { ordered[i], ordered[j], ordered[k] };
                         }
                     }
                 }
