@@ -10,6 +10,11 @@
         var result = new Dictionary<string, List<int>>();
         
         long counter  = 0;
+        int half = ordered.Count / 2;
+        int firstQuater = half / 2;
+        int thirdQuater = firstQuater * 3;
+        bool initOfj = false;
+        bool initOfk = false;
         for (int i = 0; i < ordered.Count; i++)
         {
             if (ordered[i] + ordered[i + 1] + ordered[i + 2] > 0)
@@ -18,17 +23,50 @@
             }
             for (int j = i + 1; j < ordered.Count - 1; j++)
             {
+                //if (ordered[i] + ordered[thirdQuater] + ordered[thirdQuater + 1] < 0 && !initOfj)
+                //{
+                //    j = thirdQuater;
+                //    initOfj = true;
+                //}
+                //else
+                if (!initOfj && ordered[i] + ordered[half] + ordered[half + 1] < 0)
+                {
+                    j = half;
+                    initOfj = true;
+                }
+                else if (!initOfj && ordered[i] + ordered[firstQuater] + ordered[firstQuater + 1] < 0)
+                {
+                    j = firstQuater;
+                    initOfj = true;
+                }
+
                 if (ordered[i] + ordered[j] + ordered[j + 1] > 0)
                 {
                     break;
                 }
                 for (int k = j + 1; k < ordered.Count; k++)
                 {
-                    counter++;
-                    if (ordered[i] + ordered[j] + ordered[k] > 0)
+                    //if (ordered[i] + ordered[j] + ordered[thirdQuater] < 0 && !initOfk)
+                    //{
+                    //    k = thirdQuater;
+                    //    initOfk = true;
+                    //}
+                    //else
+                    if (!initOfk && ordered[i] + ordered[j] + ordered[half] < 0)
                     {
-                        break;
+                        k = half;
+                        initOfk = true;
                     }
+                    else if (!initOfk && ordered[i] + ordered[j] + ordered[firstQuater] < 0)
+                    {
+                        k = firstQuater;
+                        initOfk = true;
+                    }
+                    counter++;
+                    //if (ordered[i] + ordered[j] + ordered[k] > 0)
+                    //{
+                    //    break;
+                    //}
                     if (ordered[i] + ordered[j] + ordered[k] == 0)
                     {
                         var orederedValues = new List<int> { ordered[i], ordered[j], ordered[k] }.OrderBy(x => x).Select(x => x.ToString());
