@@ -10,7 +10,7 @@
         var result = new Dictionary<string, List<int>>();
         
         //long counter  = 0;
-        int j = 0;
+        int j = 1;
         if (ordered.Count > 100)
         {
             for (int i = 0; i < ordered.Count; i++)
