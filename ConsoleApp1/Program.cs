@@ -5,18 +5,65 @@
         var ordered = nums.ToList().OrderBy(x => x).ToList();
         var result = new Dictionary<string, List<int>>();
 
-        int left = ordered.Count / 2, right = ordered.Count - 1;
-
-        for (int i = 0; i < ordered.Count; i++)
+        int between = ordered.Count / 2, right = ordered.Count - 1;
+        char firstMoveToThe = '?';
+        for (int left = 0; ordered[left] < 0; left++)
         {
-            while (left < right)
+            while (between < right)
             {
-                if (ordered[i] + ordered[left] + ordered[right] < 0)
+                //found Zero - next logic?
+                //didn't find Zero - how to realize it - need find border of >< - next logic?
+                if (ordered[left] + ordered[between] + ordered[right] < 0)
                 {
-                    left++;
-                    continue;
+                    if (firstMoveToThe == '?')
+                    {
+                        firstMoveToThe = '+';
+                    }
+                    else if (firstMoveToThe == '-')//prevent infinity looping without Zero case
+                    {
+                        right--;
+                        firstMoveToThe = '?';
+                        break;
+                    }
+                    //move to right
+                    between++;
+                }
+                else if (ordered[left] + ordered[between] + ordered[right] > 0)
+                {
+                    if (firstMoveToThe == '?')
+                    {
+                        firstMoveToThe = '-';
+                    }
+                    else if(firstMoveToThe == '+') //prevent infinity looping without Zero case
+                    {
+                        right--;
+                        firstMoveToThe = '?';
+                        break;
+                    }
+                    //move to left
+                    between--;
+                }
+                else if (ordered[left] + ordered[between] + ordered[right] == 0)
+                {
+                    var orederedValues = new List<int> { ordered[left], ordered[between], ordered[right] }
+                        .OrderBy(x => x).Select(x => x.ToString());
+                    var orederedKey = string.Join(string.Empty, orederedValues);
+                    if (!result.ContainsKey(orederedKey))
+                    {
+                        result[orederedKey] = new List<int> { ordered[left], ordered[between], ordered[right] };
+                    }
+
+                    //only possible case with left index?
+                    right--;
+                    firstMoveToThe = '?';
+                }
+                else
+                {
+                    throw new Exception("not covered case");
                 }
             }
+            between = ordered.Count / 2;
+            right = ordered.Count - 1;
         }
 
         return result.Values.Cast<IList<int>>().ToList();
