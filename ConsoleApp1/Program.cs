@@ -22,12 +22,8 @@
                     }
                     else if (firstMoveToThe == '-')//prevent infinity looping without Zero case
                     {
-                        between = (right - left) / 2;
+                        between = ((right - left) / 2) + left;
                         right--;
-                        if (between >= right)
-                        {
-                            between = (right - left) / 2;
-                        }
                         firstMoveToThe = '?';
                         continue;
                     }
@@ -35,7 +31,7 @@
                     between++;
                     if (between >= right)
                     {
-                        between = (right - left) / 2;
+                        between = ((right - left) / 2) + left;
                         right--;
                         firstMoveToThe = '?';
                     }
@@ -48,12 +44,8 @@
                     }
                     else if(firstMoveToThe == '+') //prevent infinity looping without Zero case
                     {
-                        between = (right - left) / 2;
+                        between = ((right - left) / 2) + left;
                         right--;
-                        if (between >= right)
-                        {
-                            between = right / 2;
-                        }
                         firstMoveToThe = '?';
                         continue;
                     }
@@ -61,7 +53,7 @@
                     between--;
                     if (between <= left)
                     {
-                        between = (right - left) / 2;
+                        between = ((right - left) / 2) + left;
                         right--;
                         firstMoveToThe = '?';
                     }
@@ -87,7 +79,7 @@
 
             firstMoveToThe = '?';
             right = ordered.Count - 1;
-            between = (right - left) / 2;
+            between = ((right - left) / 2) + left;
         }
 
         return result.Values.Cast<IList<int>>().ToList();
