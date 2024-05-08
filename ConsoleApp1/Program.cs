@@ -23,7 +23,8 @@
                     {
                         right--;
                         firstMoveToThe = '?';
-                        break;
+                        //setting correct 'between' value
+                        continue;
                     }
                     //move to right
                     between++;
@@ -38,7 +39,8 @@
                     {
                         right--;
                         firstMoveToThe = '?';
-                        break;
+                        //setting correct 'between' value
+                        continue;
                     }
                     //move to left
                     between--;
@@ -47,13 +49,14 @@
                 {
                     var orederedValues = new List<int> { ordered[left], ordered[between], ordered[right] }
                         .OrderBy(x => x).Select(x => x.ToString());
-                    var orederedKey = string.Join(string.Empty, orederedValues);
-                    if (!result.ContainsKey(orederedKey))
+                    var orderedKey = string.Join(string.Empty, orederedValues);
+                    if (!result.ContainsKey(orderedKey))
                     {
-                        result[orederedKey] = new List<int> { ordered[left], ordered[between], ordered[right] };
+                        result[orderedKey] = new List<int> { ordered[left], ordered[between], ordered[right] };
                     }
 
                     //only possible case with left index?
+                    //is it possible that I need to move left 'between' index? - seems like no, should leave 'between' on old position
                     right--;
                     firstMoveToThe = '?';
                 }
