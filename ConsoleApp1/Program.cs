@@ -22,20 +22,20 @@
                     }
                     else if (firstMoveToThe == '-')//prevent infinity looping without Zero case
                     {
-                        between = right / 2;
+                        between = (right - left) / 2;
                         right--;
+                        if (between >= right)
+                        {
+                            between = (right - left) / 2;
+                        }
                         firstMoveToThe = '?';
                         continue;
                     }
-                    //if (ordered[left] + ordered[between] > 0)
-                    //{
-                    //    right = between;
-                    //}
                     //move to right
                     between++;
                     if (between >= right)
                     {
-                        between = right / 2;
+                        between = (right - left) / 2;
                         right--;
                         firstMoveToThe = '?';
                     }
@@ -48,20 +48,20 @@
                     }
                     else if(firstMoveToThe == '+') //prevent infinity looping without Zero case
                     {
-                        between = right / 2;
+                        between = (right - left) / 2;
                         right--;
+                        if (between >= right)
+                        {
+                            between = right / 2;
+                        }
                         firstMoveToThe = '?';
                         continue;
-                    }
-                    if (ordered[left] + ordered[between] > 0)
-                    {
-                        right = between;
                     }
                     //move to left
                     between--;
                     if (between <= left)
                     {
-                        between = right / 2;
+                        between = (right - left) / 2;
                         right--;
                         firstMoveToThe = '?';
                     }
@@ -86,8 +86,8 @@
             }
 
             firstMoveToThe = '?';
-            between = ordered.Count / 2 <= left + 1 ? left + 2 : ordered.Count / 2;
             right = ordered.Count - 1;
+            between = (right - left) / 2;
         }
 
         return result.Values.Cast<IList<int>>().ToList();
