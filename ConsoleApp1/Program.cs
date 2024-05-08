@@ -24,6 +24,7 @@
                     }
                     else if (firstMoveToThe == '-')//prevent infinity looping without Zero case
                     {
+                        ordered.RemoveAt(right);
                         right--;
                         firstMoveToThe = '?';
                         //setting correct 'between' value
@@ -40,6 +41,7 @@
                     }
                     else if(firstMoveToThe == '+') //prevent infinity looping without Zero case
                     {
+                        ordered.RemoveAt(right);
                         right--;
                         firstMoveToThe = '?';
                         //setting correct 'between' value
@@ -60,6 +62,8 @@
 
                     //only possible case with left index?
                     //is it possible that I need to move left 'between' index? - seems like no, should leave 'between' on old position
+
+                    ordered.RemoveAt(right);
                     right--;
                     firstMoveToThe = '?';
                 }
