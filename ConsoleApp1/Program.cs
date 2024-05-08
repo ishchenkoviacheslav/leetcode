@@ -27,6 +27,10 @@
                         firstMoveToThe = '?';
                         continue;
                     }
+                    //if (ordered[left] + ordered[between] > 0)
+                    //{
+                    //    right = between;
+                    //}
                     //move to right
                     between++;
                     if (between >= right)
@@ -48,6 +52,10 @@
                         right--;
                         firstMoveToThe = '?';
                         continue;
+                    }
+                    if (ordered[left] + ordered[between] > 0)
+                    {
+                        right = between;
                     }
                     //move to left
                     between--;
