@@ -12,7 +12,7 @@
         char firstMoveToThe = '?';
         for (int left = 0; ordered[left] < 0; left++)
         {
-            while (between < right && between > left)
+            while (right > left)
             {
                 if (ordered[left] + ordered[between] + ordered[right] < 0)
                 {
@@ -28,6 +28,12 @@
                     }
                     //move to right
                     between++;
+                    if (between >= right)
+                    {
+                        between = right / 2;
+                        right--;
+                        firstMoveToThe = '?';
+                    }
                 }
                 else if (ordered[left] + ordered[between] + ordered[right] > 0)
                 {
@@ -43,6 +49,12 @@
                     }
                     //move to left
                     between--;
+                    if (between <= left)
+                    {
+                        between = right / 2;
+                        right--;
+                        firstMoveToThe = '?';
+                    }
                 }
                 else if (ordered[left] + ordered[between] + ordered[right] == 0)
                 {
