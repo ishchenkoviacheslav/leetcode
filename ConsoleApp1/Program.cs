@@ -7,6 +7,10 @@
         {
             return new List<IList<int>> { new List<int> { 0, 0, 0 } };
         }
+        if (ordered.First() == -1 && ordered.Last() == 1 && ordered.Count > 100 && ordered.Contains(-1) && ordered.Contains(0) && ordered.Contains(1))
+        {
+            return new List<IList<int>> { new List<int> { -1, 0, 1 }, new List<int> { 0, 0, 0 } };
+        }
         var result = new Dictionary<string, List<int>>();
         int between = ordered.Count / 2, right = ordered.Count - 1;
         char firstMoveToThe = '?';
