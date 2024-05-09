@@ -60,61 +60,69 @@
                         firstMoveToThe = '?';
                         continue;
                     }
+                    //move to left
+                    between--;
+                    leftInRow++;
                     if (ordered.Count > 100 && leftInRow > 3)
                     {
                         leftInRow = 0;
                         bool thousands = true;
                         bool hundreds = true;
                         bool tens = true;
-                        if (thousands)
+                        while (true)
                         {
-                            while(true)
+                            if (thousands)
                             {
-                                if (between - 1000 > left && ordered[left] + ordered[between - 1000] + ordered[right] < 0)
+                                while (true)
                                 {
-                                    thousands = false;
-                                    break;
-                                }
-                                else
-                                {
-                                    between -= 1000;
+                                    if (between - 1000 > left && ordered[left] + ordered[between - 1000] + ordered[right] > 0)
+                                    {
+                                        between -= 1000;
+                                    }
+                                    else
+                                    {
+                                        thousands = false;
+                                        break;
+                                    }
                                 }
                             }
-                        }
-                        else if (hundreds)
-                        {
-                            while (true)
+                            else if (hundreds)
                             {
-                                if (between - 100 > left && ordered[left] + ordered[between - 100] + ordered[right] < 0)
+                                while (true)
                                 {
-                                    hundreds = false;
-                                    break;
-                                }
-                                else
-                                {
-                                    between -= 100;
+                                    if (between - 100 > left && ordered[left] + ordered[between - 100] + ordered[right] > 0)
+                                    {
+                                        between -= 100;
+                                    }
+                                    else
+                                    {
+                                        hundreds = false;
+                                        break;
+                                    }
                                 }
                             }
-                        }
-                        else if (tens)
-                        {
-                            while (true)
+                            else if (tens)
                             {
-                                if (between - 10 > left && ordered[left] + ordered[between - 10] + ordered[right] < 0)
+                                while (true)
                                 {
-                                    tens = false;
-                                    break;
+                                    if (between - 10 > left && ordered[left] + ordered[between - 10] + ordered[right] > 0)
+                                    {
+                                        between -= 10;
+                                    }
+                                    else
+                                    {
+                                        tens = false;
+                                        break;
+                                    }
                                 }
-                                else
-                                {
-                                    between -= 10;
-                                }
+                            }
+                            if (!tens && !hundreds && !thousands)
+                            {
+                                break;
                             }
                         }
                     }
-                    //move to left
-                    between--;
-                    leftInRow++;
+                    
                     if (between <= left)
                     {
                         between = ((right - left) / 2) + left;
